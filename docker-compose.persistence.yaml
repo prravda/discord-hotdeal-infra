@@ -1,0 +1,43 @@
+version: "3.9"
+
+services:
+  database-postgres:
+    hostname: database-postgres
+    container_name: database-postgres
+    image: postgres:15.3-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: ${DATABASE_NAME}
+    restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 1s
+      timeout: 5s
+      retries: 10
+    volumes:
+      - database:/var/lib/postgresql/data
+    networks:
+      - persistence
+
+  cache-redis:
+    hostname: cache-redis
+    container_name: cache-redis
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - cache:/data
+    networks:
+      - persistence
+
+volumes:
+  database:
+  cache:
+
+networks:
+  persistence:
+    name: persistence
+    driver: bridge
