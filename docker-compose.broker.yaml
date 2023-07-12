@@ -19,6 +19,8 @@ services:
       - POSTGRESQL_PASSWORD=memphis
       - POSTGRESQL_DATABASE=memphis
       - POSTGRESQL_PORT_NUMBER=5005
+    volumes:
+      - memphis-metadata:/bitnami/postgresql
 
   memphis:
     container_name: memphis
@@ -49,6 +51,7 @@ services:
       - METADATA_DB_HOST=memphis-metadata
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+      - memphis:/tmp/nats
 
   memphis-rest-gateway:
     container_name: memphis-rest-gateway
@@ -79,3 +82,7 @@ networks:
     driver: bridge
     ipam:
       driver: default
+
+volumes:
+  memphis-metadata:
+  memphis:

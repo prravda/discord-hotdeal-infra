@@ -6,7 +6,7 @@ services:
     container_name: database-postgres
     image: postgres:15.3-alpine
     ports:
-      - "5432:5432"
+      - "54321:5432"
     environment:
       POSTGRES_USER: ${DATABASE_USER}
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
@@ -25,11 +25,29 @@ services:
   cache-redis:
     hostname: cache-redis
     container_name: cache-redis
-    image: redis:7-alpine
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+      - REDIS_PORT_NUMBER=6379
+    image: bitnami/redis:latest
     ports:
       - "6379:6379"
     volumes:
       - cache:/data
+    networks:
+      - persistence
+
+  job-queue-redis:
+    hostname: job-queue-redis
+    container_name: job-queue-redis
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+      - REDIS_PORT_NUMBER=6380
+    image: bitnami/redis:latest
+    ports:
+      - "6380:6380"
+    deploy:
+      restart_policy:
+        condition: on-failure
     networks:
       - persistence
 
