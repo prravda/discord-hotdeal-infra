@@ -24,6 +24,7 @@ services:
 
   cache-redis:
     hostname: cache-redis
+    restart: always
     container_name: cache-redis
     environment:
       - ALLOW_EMPTY_PASSWORD=yes
