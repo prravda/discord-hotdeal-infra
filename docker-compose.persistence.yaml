@@ -27,13 +27,13 @@ services:
     restart: always
     container_name: cache-redis
     environment:
-      - ALLOW_EMPTY_PASSWORD=yes
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
       - REDIS_PORT_NUMBER=6379
-    image: bitnami/redis:latest
+    image: bitnami/redis:7.0
     ports:
       - "6379:6379"
     volumes:
-      - cache:/data
+      - cache:/bitnami/redis/data
     networks:
       - persistence
 
@@ -41,9 +41,9 @@ services:
     hostname: job-queue-redis
     container_name: job-queue-redis
     environment:
-      - ALLOW_EMPTY_PASSWORD=yes
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
       - REDIS_PORT_NUMBER=6380
-    image: bitnami/redis:latest
+    image: bitnami/redis:7.0
     ports:
       - "6380:6380"
     deploy:
