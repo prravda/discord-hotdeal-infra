@@ -50,13 +50,33 @@ services:
       restart_policy:
         condition: on-failure
     volumes:
-      - cache:/bitnami/redis/data
+      - job-queue:/bitnami/redis/data
     networks:
       - persistence
+
+  duplicate-table-redis:
+    hostname: duplicate-table-redis
+    container_name: duplicate-table-redis
+    environment:
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+      - REDIS_PORT_NUMBER=6381
+    image: bitnami/redis:7.0
+    ports:
+      - "6381:6381"
+    deploy:
+      restart_policy:
+        condition: on-failure
+    volumes:
+      - duplicate-table:/bitnami/redis/data
+    networks:
+      - persistence
+
 
 volumes:
   database:
   cache:
+  job-queue:
+  duplicate-table:
 
 networks:
   persistence:
