@@ -6,12 +6,16 @@
 
 ## Persistence
 
-- `redis` for caching
+- `redis` for... 
+  - caching
+  - job queue
+  - duplicate table
 - `postgresql` for database
 
 ## Broker
 
 - `memphis` for message broker
+  - it also contains another part of memphis (metadata storage, rest gateway) 
 
 # Configuration
 
