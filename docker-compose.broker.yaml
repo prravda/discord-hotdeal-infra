@@ -25,7 +25,7 @@ services:
   memphis:
     container_name: memphis
     hostname: memphis
-    image: "memphisos/memphis:stable"
+    image: "memphisos/memphis:1.1.1-stable"
     depends_on:
       memphis-metadata:
         condition: service_healthy
