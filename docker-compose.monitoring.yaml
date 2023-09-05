@@ -1,0 +1,41 @@
+version: "3.9"
+
+services:
+  grafana:
+    image: grafana/grafana:latest
+    restart: always
+    hostname: "grafana"
+    container_name: "grafana"
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./configs/grafana-stack/grafana/grafana-datasource.yaml:/etc/grafana/provisioning/datasources/datasources.yaml
+      - grafana:/var/lib/grafana
+    environment:
+      - GF_AUTH_ANONYMOUS_ENABLED=false
+      - GF_AUTH_DISABLE_LOGIN_FORM=false
+      - GF_SECURITY_ADMIN_USER=${GRAFANA_ADMIN_USER}
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_ADMIN_PASSWORD}
+    networks:
+      - monitoring
+
+  loki:
+    image: grafana/loki:latest
+    restart: always
+    container_name: "loki"
+    ports:
+      - "3100:3100"
+    volumes:
+      - loki:/loki
+      - ./configs/grafana-stack/loki/loki-local-config.yaml:/etc/loki/local-config.yaml
+    networks:
+      - monitoring
+
+networks:
+  monitoring:
+    name: monitoring
+    driver: bridge
+
+volumes:
+  loki:
+  grafana:

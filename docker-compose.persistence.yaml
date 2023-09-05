@@ -71,7 +71,6 @@ services:
     networks:
       - persistence
 
-
 volumes:
   database:
   cache:

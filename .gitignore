@@ -80,6 +80,7 @@ web_modules/
 .env.local
 .env.broker
 .env.persistence
+.env.monitoring
 
 # parcel-bundler cache (https://parceljs.org/)
 .cache

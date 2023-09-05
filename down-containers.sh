@@ -6,4 +6,6 @@ docker compose \
   --env-file .env.broker \
   -f docker-compose.persistence.yaml \
   --env-file .env.persistence \
+  -f docker-compose.monitoring.yaml \
+  --env-file .env.monitoring \
   down
