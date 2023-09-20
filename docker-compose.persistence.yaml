@@ -71,11 +71,58 @@ services:
     networks:
       - persistence
 
+  keyword-dragonflydb-write-0:
+    hostname: keyword-dragonflydb-write-0
+    container_name: keyword-dragonflydb-write-0
+    image: docker.dragonflydb.io/dragonflydb/dragonfly:v1.10.0
+    entrypoint:
+      - dragonfly
+    command:
+      - --port=6382
+      - --cluster_mode=emulated
+      - --requirepass=${REDIS_PASSWORD}
+      - --masterauth=${REDIS_PASSWORD}
+    ulimits:
+      memlock: -1
+    ports:
+      - "6382:6382"
+    networks:
+      - persistence
+    volumes:
+      - keyword-dragonflydb-write-0:/data
+
+  keyword-dragonflydb-read-0:
+    hostname: keyword-dragonflydb-read-0
+    container_name: keyword-dragonflydb-read-0
+    image: docker.dragonflydb.io/dragonflydb/dragonfly:v1.10.0
+    ports:
+      - "6383:6379"
+    entrypoint:
+      - dragonfly
+    command:
+      - --cluster_mode=emulated
+      - --requirepass=${REDIS_PASSWORD}
+      - --masterauth=${REDIS_PASSWORD}
+      - --replicaof
+      - keyword-dragonflydb-write-0:6382
+    ulimits:
+      memlock: -1
+    depends_on:
+      - keyword-dragonflydb-write-0
+    networks:
+      - persistence
+    volumes:
+      - keyword-dragonflydb-read-0:/data
+
 volumes:
   database:
   cache:
   job-queue:
   duplicate-table:
+  keyword-dragonflydb-write-0:
+    name: keyword-dragonflydb-write-0
+  keyword-dragonflydb-read-0:
+    name: keyword-dragonflydb-read-0
 
 networks:
   persistence:
