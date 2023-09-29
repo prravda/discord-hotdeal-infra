@@ -25,7 +25,7 @@ services:
   memphis:
     container_name: memphis
     hostname: memphis
-    image: "memphisos/memphis:1.1.1-stable"
+    image: "memphisos/memphis:1.2.0-stable"
     depends_on:
       memphis-metadata:
         condition: service_healthy
@@ -56,7 +56,7 @@ services:
   memphis-rest-gateway:
     container_name: memphis-rest-gateway
     hostname: memphis-rest-gateway
-    image: "memphisos/memphis-rest-gateway:latest"
+    image: "memphisos/memphis-rest-gateway:1.1.2"
     depends_on:
       memphis:
         condition: service_healthy
