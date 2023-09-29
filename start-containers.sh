@@ -1,11 +1,10 @@
-#!/bin/zsh
-cd "$(dirname "$0")"
+#!/bin/bash
 
 docker compose \
-  -f docker-compose.broker.yaml \
   --env-file .env.broker \
-  -f docker-compose.persistence.yaml \
+  -f docker-compose.broker.yaml \
   --env-file .env.persistence \
-  -f docker-compose.monitoring.yaml \
+  -f docker-compose.persistence.yaml \
   --env-file .env.monitoring \
+  -f docker-compose.monitoring.yaml \
   up --build -d
