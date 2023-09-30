@@ -21,6 +21,9 @@
 ## Monitoring
 - `grafana` for dashboard
 - `loki` for centralized log aggregator
+- `pormetheus` for metrics collector
+  - `node-exporter` for host metrics
+  - `cadvisor` for container metrics
 
 # Configuration
 
