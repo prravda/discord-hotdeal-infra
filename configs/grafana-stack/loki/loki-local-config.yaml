@@ -23,8 +23,11 @@ limits_config:
   # 2 week
   retention_period: 336h
   retention_stream:
-    - selector: '{target="hotdeal"}'
+    - selector: '{container="hotdeal-scrapper"}'
       priority: 1
+      period: 24h
+    - selector: '{container="notification-manager"}'
+      priority: 2
       period: 24h
 
 
