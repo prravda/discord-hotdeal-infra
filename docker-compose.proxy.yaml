@@ -5,6 +5,8 @@ services:
     image: traefik:2.10.4
     container_name: traefik
     hostname: traefik
+    environment:
+      - DOMAIN_NAME
     command:
       - --configFile=/etc/traefik/traefik.yaml
     ports:
