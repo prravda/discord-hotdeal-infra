@@ -1,16 +1,16 @@
 http:
   routers:
     router-broker-dashboard:
-      rule: "Host(`broker.${DOMAIN_NAME}`)"
+      rule: "Host(`broker.{{env "DOMAIN_NAME"}}`)"
       service: broker-dashboard
 
     router-monitor:
-      rule: "Host(`monitor.${DOMAIN_NAME}`)"
+      rule: "Host(`monitor.{{env "DOMAIN_NAME"}}`)"
       service: monitor
 
     router-traefik:
-      rule: "Host(`traefik.${DOMAIN_NAME}`)"
-      service: api@internal
+      rule: "Host(`traefik.{{env "DOMAIN_NAME"}}`)"
+      service: dashboard@internal
 
 
   services:
