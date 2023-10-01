@@ -18,6 +18,9 @@ services:
       - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_ADMIN_PASSWORD}
     networks:
       - monitoring
+    labels:
+      - "traefik.http.routers.router-monitor.entrypoints=http"
+      - "traefik.http.routers.router-monitor.rule=Host(`monitor.{DOMAIN_NAME}`)"
 
   loki:
     image: grafana/loki:latest
@@ -90,6 +93,9 @@ networks:
   monitoring:
     name: monitoring
     driver: bridge
+  proxy:
+    name: proxy
+    external: true
 
 volumes:
   loki:

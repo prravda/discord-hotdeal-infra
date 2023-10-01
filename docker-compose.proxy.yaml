@@ -1,0 +1,22 @@
+version: "3.9"
+
+services:
+  traefik:
+    image: traefik:2.10.4
+    container_name: traefik
+    hostname: traefik
+    command:
+      - --configFile=/etc/traefik/traefik.yaml
+    ports:
+      - "80:80"
+      - "8888:8080"
+    volumes:
+      - ./configs/traefik/traefik.yaml:/etc/traefik/traefik.yaml
+      - ./configs/traefik/traefik-dynamic.yaml:/etc/traefik/traefik-dynamic.yaml
+    networks:
+      - proxy
+
+networks:
+  proxy:
+    name: proxy
+    driver: bridge

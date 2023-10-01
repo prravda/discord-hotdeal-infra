@@ -7,4 +7,6 @@ docker compose \
   -f docker-compose.persistence.yaml \
   --env-file .env.monitoring \
   -f docker-compose.monitoring.yaml \
+  --env-file .env.proxy \
+  -f docker-compose.proxy.yaml \
   down

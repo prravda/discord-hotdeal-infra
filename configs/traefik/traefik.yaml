@@ -1,0 +1,11 @@
+api:
+  insecure: true
+
+entryPoints:
+  http:
+    address: ":80"
+
+providers:
+  file:
+    filename: /etc/traefik/traefik-dynamic.yaml
+    watch: true

@@ -38,6 +38,7 @@ services:
     pull_policy: always
     networks:
       - hotdeal-service
+      - proxy
     ports:
       - "9000:9000"
       - "6666:6666"
@@ -52,6 +53,10 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - memphis:/tmp/nats
+    labels:
+      - "traefik.http.routers.router-broker.entrypoints=http"
+      - "traefik.http.routers.router-broker.rule=Host(`broker.${DOMAIN_NAME}`)"
+
 
   memphis-rest-gateway:
     container_name: memphis-rest-gateway
@@ -82,6 +87,9 @@ networks:
     driver: bridge
     ipam:
       driver: default
+  proxy:
+    name: proxy
+    external: true
 
 volumes:
   memphis-metadata:

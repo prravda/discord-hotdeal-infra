@@ -7,7 +7,6 @@
 ## Persistence
 
 - `redis` for
-  - caching
   - job queue
   - duplicate table
 - `postgresql` for database
@@ -25,8 +24,16 @@
   - `node-exporter` for host metrics
   - `cadvisor` for container metrics
 
+## Proxy & Load Balancer
+- `traefik` for proxy and load balancer 
+
 # Configuration
 
+## Environment variables
+- create `.env.*` file on root dir from `.env.*-example` file 
+- please refer to [dotenv-examples](/dotenv-examples) directory
+
+## Permission
 ```shell
 chmod +x start-containers.sh down-containers.sh
 ```
