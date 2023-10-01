@@ -9,7 +9,7 @@ http:
       service: monitor
 
     router-traefik:
-      rule: "Host(`traefik.{{env "DOMAIN_NAME"}}`) && PathPrefix(`/dashboard`)"
+      rule: "Host(`traefik.{{env "DOMAIN_NAME"}}`) && (PathPrefix(`/api`) || PathPrefix(`/dashboard`))"
       service: api@internal
 
 
