@@ -10,7 +10,7 @@ http:
 
     router-traefik:
       rule: "Host(`traefik.{{env "DOMAIN_NAME"}}`)"
-      service: dashboard@internal
+      service: api@internal
 
 
   services:
