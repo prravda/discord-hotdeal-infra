@@ -38,15 +38,7 @@ limits_config:
 
 schema_config:
   configs:
-    - from: 2020-10-24
-      store: boltdb_shipper
-      object_store: filesystem
-      schema: v11
-      index:
-        prefix: index_
-        period: 24h
-
-    - from: 2024-04-30
+    - from: 2023-01-01
       store: tsdb_shipper
       object_store: filesystem
       schema: v13
