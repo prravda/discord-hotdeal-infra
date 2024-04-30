@@ -5,31 +5,36 @@ server:
 
 common:
   path_prefix: /loki
-  storage:
-    filesystem:
-      chunks_directory: /loki/chunks
-      rules_directory: /loki/rules
   replication_factor: 1
   ring:
     kvstore:
       store: inmemory
 
+storage_config:
+  filesystem:
+    chunks_directory: /loki/chunks
+    rules_directory: /loki/rules
+
+  boltdb-shipper:
+    active_index_directory: /loki/boltdb-index
+    cache_location: /loki/boltdb-cache
+    cache_ttl: 12h
+
+  tsdb_shipper:
+    active_index_directory: /loki/tsdb-index
+    cache_location: /loki/tsdb-cache
+    cache_ttl: 12h
+
 compactor:
+  working_directory: /loki/compactor
   compaction_interval: 10m
   retention_enabled: true
+  delete_request_store: filesystem
+  retention_delete_delay: 2h
   retention_delete_worker_count: 150
 
 limits_config:
-  # 2 week
   retention_period: 336h
-  retention_stream:
-    - selector: '{container="hotdeal-scrapper"}'
-      priority: 1
-      period: 24h
-    - selector: '{container="notification-manager"}'
-      priority: 2
-      period: 24h
-
 
 schema_config:
   configs:
@@ -37,6 +42,14 @@ schema_config:
       store: boltdb-shipper
       object_store: filesystem
       schema: v11
+      index:
+        prefix: index_
+        period: 24h
+
+    - from: 2024-04-30
+      store: tsdb
+      object_store: filesystem
+      schema: v13
       index:
         prefix: index_
         period: 24h

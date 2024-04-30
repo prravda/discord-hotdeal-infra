@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   grafana:
-    image: grafana/grafana:latest
+    image: grafana/grafana-oss:10.4.2-ubuntu
     restart: always
     hostname: "grafana"
     container_name: "grafana"
@@ -24,7 +24,7 @@ services:
       - "traefik.http.routers.router-monitor.rule=Host(`monitor.${DOMAIN_NAME}`)"
 
   loki:
-    image: grafana/loki:latest
+    image: grafana/loki:3.0.0
     restart: always
     container_name: "loki"
     ports:
