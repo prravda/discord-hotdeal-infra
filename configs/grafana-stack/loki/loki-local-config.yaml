@@ -15,10 +15,6 @@ common:
       store: inmemory
 
 storage_config:
-  boltdb_shipper:
-    active_index_directory: /loki/boltdb-index
-    cache_location: /loki/boltdb-cache
-    cache_ttl: 12h
 
   tsdb_shipper:
     active_index_directory: /loki/tsdb-index
