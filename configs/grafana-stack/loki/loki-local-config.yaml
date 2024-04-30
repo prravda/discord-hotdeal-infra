@@ -5,16 +5,15 @@ server:
 
 common:
   path_prefix: /loki
+  filesystem:
+    chunks_directory: /loki/chunks
+    rules_directory: /loki/rules
   replication_factor: 1
   ring:
     kvstore:
       store: inmemory
 
 storage_config:
-  filesystem:
-    chunks_directory: /loki/chunks
-    rules_directory: /loki/rules
-
   boltdb-shipper:
     active_index_directory: /loki/boltdb-index
     cache_location: /loki/boltdb-cache
@@ -47,7 +46,7 @@ schema_config:
         period: 24h
 
     - from: 2024-04-30
-      store: tsdb
+      store: tsdb_shipper
       object_store: filesystem
       schema: v13
       index:
