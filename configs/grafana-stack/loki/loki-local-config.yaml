@@ -15,6 +15,10 @@ common:
       store: inmemory
 
 storage_config:
+  boltdb_shipper:
+    active_index_directory: /loki/boltdb-index
+    cache_location: /loki/boltdb-cache
+    cache_ttl: 12h
 
   tsdb_shipper:
     active_index_directory: /loki/tsdb-index
@@ -34,8 +38,16 @@ limits_config:
 
 schema_config:
   configs:
-    - from: 2023-01-01
-      store: tsdb_shipper
+    - from: 2020-10-24
+      store: boltdb-shipper
+      object_store: filesystem
+      schema: v13
+      index:
+        prefix: index_
+        period: 24h
+
+    - from: 2024-04-30
+      store: tsdb
       object_store: filesystem
       schema: v13
       index:
